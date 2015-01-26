@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab2.controller;
+package lab4.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lab4.model.WelcomeService;
 
 /**
  *
- * @author tim
+ * @author Timothy
  */
-@WebServlet(name = "PageGenerator", urlPatterns = {"/pager"})
-public class PageGenerator extends HttpServlet {
+@WebServlet(name = "Greeter", urlPatterns = {"/greeter"})
+public class Greeter extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +35,22 @@ public class PageGenerator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String color = request.getParameter("color");
-            String first = request.getParameter("firstName");
-            String last = request.getParameter("lastName");
+            String name = request.getParameter("firstName");
+            
+            WelcomeService ws = new WelcomeService();
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PageGenerator</title>");            
+            out.println("<title>Servlet Greeter</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            out.println("<h1>Welcome " + first + " " + last + "</h1>");
-            out.println("<h1 style='color:" + color+ "'>Servlet PageGenerator at " + request.getContextPath() + "</h1>");
-            out.println("<table>");
-            for(int row = 0; row < 3; row++) {
-                out.println("<tr>");
-                for(int col = 0; col < 3; col++) {
-                    out.println("<td>" + row + ":" + col + "</td>");
-                }
-                out.println("</tr>");
-            }
-            out.println("</table>");
-            
-            
+            out.println("<h1>" +  ws.getMessage(name) + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            
+            
         }
     }
 
